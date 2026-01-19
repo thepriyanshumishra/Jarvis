@@ -1,0 +1,9 @@
+allowed_tools:
+  - open_app
+  - open_url
+  - search_web
+  - open_browser
+
+blocked_actions:
+  - delete_file
+  - execute_shell

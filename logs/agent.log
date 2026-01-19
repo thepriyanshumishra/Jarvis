@@ -1,0 +1,4 @@
+2026-01-20 02:20:33,416 - agent - INFO - Starting agent with input: hey
+2026-01-20 02:21:32,806 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-01-20 02:21:32,806 - agent - INFO - Generated plan: []
+2026-01-20 02:21:42,496 - agent - INFO - Starting agent with input: hi

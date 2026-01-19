@@ -1,0 +1,7 @@
+llm:
+  model: "phi3:mini"
+  timeout: 30
+
+run:
+  max_steps: 10
+  debug: true
