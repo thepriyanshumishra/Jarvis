@@ -6,7 +6,9 @@ import tools.system
 import tools.browser
 import tools.filesystem
 import tools.content
+import tools.memory_tool
 import logging
+
 
 # Configure logging
 logging.basicConfig(

@@ -7,15 +7,25 @@ from llm.prompts import AGENT_SYSTEM_PROMPT
 from tools.registry import ToolRegistry
 import logging
 
+from core.memory import Memory
+
 class Agent:
     def __init__(self):
         self.llm = LLMClient()
         self.planner = Planner(self.llm)
         self.history: List[Step] = []
         self.logger = logging.getLogger("agent")
+        self.memory = Memory()
 
     def run(self, input_text: str):
         self.logger.info(f"Starting agent with input: {input_text}")
+        
+        # Log User Input to Memory
+        self.memory.add_log("user", input_text)
+        
+        # Retrieve recent context (short-term memory from DB)
+        # We could use this to augment the planner or execution prompts
+        # current_context = self.memory.get_recent_logs(5)
         
         # 1. Plan
         plan = self.planner.create_plan(input_text)
@@ -72,6 +82,9 @@ class Agent:
             )
             self.history.append(step)
             self.logger.info(f"Step completed: {thought}")
+            
+            # Log Agent Thought/Action to Memory
+            self.memory.add_log("agent", f"Thought: {thought} | Action: {tool_name} | Result: {str(observation.output if observation else '')[:100]}...")
             
         except json.JSONDecodeError:
             self.logger.error("Failed to parse LLM response")
