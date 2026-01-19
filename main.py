@@ -4,6 +4,9 @@ from core.agent import Agent
 # Import tools to register them
 import tools.system
 import tools.browser
+import tools.filesystem
+import tools.content
+import logging
 
 # Configure logging
 logging.basicConfig(

@@ -43,6 +43,14 @@ class Agent:
             
             action = None
             if tool_name:
+                # Handle cases where LLM hallucinates list args
+                if isinstance(args, list):
+                    self.logger.warning(f"LLM returned list for args: {args}. Attempting to recover.")
+                    # Simplistic recovery: if 1 item, maybe it's the first arg? 
+                    # But we don't know the key. Safer to make it empty or error cleanly.
+                    # For now, let's just warn and try to proceed with empty or error.
+                    args = {} 
+                
                 action = Action(tool_name=tool_name, args=args)
             
             # Execute
